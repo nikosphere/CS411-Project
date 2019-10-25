@@ -1,0 +1,19 @@
+{% extends 'Trends/base.html' %}
+
+    <title>{% block title %} Results {% endblock %}</title>
+
+{% block body %}
+    <h2>Trends API</h2>
+    <p>Boston Night Life search <strong>{{ list }}</strong></p>
+    <img src="{{ trends.trendSearch }}">
+    <h1>{{ trends.trendLocation }}</h1>
+    <h3>{{ trends.trendCategory }}</h3>
+
+    <ul>
+        {% for yelpCategory in trends.yelpsearch_set.all %}
+            <li>{{ yelp1.yelpCategory}} - {{ yelp1.yelpLocation }}</li>
+        {% endfor%}
+
+    </ul>
+
+{% endblock %}

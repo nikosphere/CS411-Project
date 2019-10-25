@@ -1,0 +1,14 @@
+
+<!-- extends the base nav bar across all stuff-->
+{% extends 'Trends/base.html' %}
+
+{% block body %}
+    <h2>Trends API</h2>
+    <p>Boston Night Life search <strong>{{ html }}</strong></p>
+    <ul>
+        {% for trends in all_favorites %}
+            <li><a href = "{% url 'Trends:detail' trends.id %}">{{ trends.trendCategory }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

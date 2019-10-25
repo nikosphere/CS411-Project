@@ -1,0 +1,13 @@
+{% extends 'Trends/base.html' %}
+{% block body %}
+{% for card in parsedData %}
+    <tr>
+          <td>{{ card.name}}</td>
+          <td>{{ card.location }}</td>
+          <td>{{ card.rating }}</td>
+          <td>{{ card.price }}</td>
+          <td>{{ card.phone }}</td>
+      </tr>
+  {% endfor %}
+
+{% endblock %}

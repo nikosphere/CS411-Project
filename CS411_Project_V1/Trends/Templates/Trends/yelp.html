@@ -1,0 +1,26 @@
+{% extends 'Trends/base.html' %}
+{% block body %}
+<h2>Yelp Recommendations </h2>
+
+<form method="POST">
+                        {% csrf_token %}
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                {{ form.name }}
+                            </div>
+                            <div class="control">
+                                <button type="submit" class="button is-info">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+
+   {% for restaurant in restaurant_data %}
+    <ul>
+        <li>{{ restaurant}}</li>
+    </ul>
+
+  {% endfor %}
+{% endblock %}
