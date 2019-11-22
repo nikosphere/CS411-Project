@@ -14,9 +14,14 @@ import json
 #stuff = pytrends.interest_over_time()
 #print(stuff)
 
+def login(request):
+    return render(request, 'Trends/join.html')
 
+@login_required
+def home(request):
+    return render(request, 'Trends/home.html')
 
-
+@login_required
 def yelp_query(request):
     business_id = '_b_RUDVdh3IY_pNDXn2rPw'
     YELP_API_KEY = '4F_2Zz_KqR8W9sQGdEOr3W8kvMLHrHhjmZwaIIKWnz95thdXigFNVa6LTd7QZ0mOf8gAb4IGX_bKa-_qPBWeIW__-gTFhCdRUbwZu-jWNzTqI5PBdlI41U2W9KSvXXYx'

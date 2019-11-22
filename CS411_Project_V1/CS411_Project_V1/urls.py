@@ -18,8 +18,8 @@ from django.urls import include, path
 
 
 urlpatterns = [
-
-    path('admin/', admin.site.urls),
     # whenever a user type in "admin" if it matches, then it goes to the url that we want
-    path('trends/', include('Trends.urls')),
+    path('admin/', admin.site.urls),
+    path("trends/", include('Trends.urls')),
+    path("join/", include('Trends.urls')),
 ]
