@@ -11,5 +11,9 @@ urlpatterns = [
     #will give you a specific place for your favorite
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('yelp/', views.yelp_query, name ='search'),
-    path('register', views.UserFormView.as_view(), name ='register')
+    path('register', views.UserFormView.as_view(), name ='register'),
+    # login via fb
+    path("join/", views.login, name='join'),
+    path('social-auth/', include('social_django.urls', namespace="social")),
+    # path("", views.home, name="home"),
 ]
