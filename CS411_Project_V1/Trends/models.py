@@ -10,6 +10,13 @@ class catParams(models.Model):
 
     class Meta:
         verbose_name_plural = 'names'
+class trendParams(models.Model):
+    trends = models.CharField(max_length=45)
+
+    def __str__(self):
+        return self.trends
+
+
 
 # creates the Trends class which will be used to store the information within our database
 class Trends(models.Model):

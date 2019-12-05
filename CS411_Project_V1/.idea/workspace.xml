@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6c4aa8f8-9e24-45c6-86b6-f31c09b47923" name="Default Changelist" comment="" />
+    <list default="true" id="6c4aa8f8-9e24-45c6-86b6-f31c09b47923" name="Default Changelist" comment="Code clean up">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Trends/Templates/Trends/trendy.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Trends/migrations/0010_trendparams.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trends/Templates/Trends/yelp.html" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/Templates/Trends/yelp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trends/Templates/Trends/yelpSearch.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trends/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trends/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trends/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trends/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,11 +55,19 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1SWth5PY15ShQUrktw0vGVEd08O" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../CS411_ProjectV2" />
+    <property name="last_opened_file_path" value="$USER_HOME$/PycharmProjects/CS411_Project_V1" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -130,13 +153,35 @@
       <workItem from="1571691349571" duration="16904000" />
       <workItem from="1571804047059" duration="68957000" />
       <workItem from="1571979989877" duration="25209000" />
+      <workItem from="1572360519398" duration="22492000" />
+      <workItem from="1572660554729" duration="18710000" />
+      <workItem from="1572743050563" duration="15000" />
+      <workItem from="1573939262874" duration="5997000" />
+      <workItem from="1574358577508" duration="11857000" />
+      <workItem from="1575487801561" duration="10258000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/CS411_Project_V1$manage.coverage" NAME="manage Coverage Results" MODIFIED="1571939328521" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CS411_Project_V1$manage.coverage" NAME="manage Coverage Results" MODIFIED="1575582202046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

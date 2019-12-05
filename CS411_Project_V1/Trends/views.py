@@ -1,20 +1,37 @@
 from pytrends.request import TrendReq
 from django.views import generic
-from .models import Trends, catParams
+from .models import Trends, catParams, trendParams
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import View
-from .forms import UserForm, RestaurantForm
+from .forms import UserForm, RestaurantForm, TrendForm
 import requests
 import json
 
-#pytrends = TrendReq(hl='en-US', tz=360)
-#kw_list = ["Boston North End"]
-#pytrends.build_payload(kw_list, cat=188, timeframe='today 1-m', geo='US-MA', gprop='')
-#stuff = pytrends.interest_over_time()
-#print(stuff)
-
-
+#questions
+#Cant seem to pass an input through the form and to the API properly?
+#Dictionary Parsing?
+def pytrends_query(request):
+    if request.method == 'POST':
+        form = TrendForm(request.POST)
+        form.save()
+    form = TrendForm()
+    trendData = []
+    all_trends = trendParams.objects.all()
+    for trends in all_trends:
+        pytrends = TrendReq(hl='en-US', tz=360)  # calls pyTrends
+        kw_list = [trends] #calls form from forms.py for user input from HTML file
+        pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d', geo='US', gprop='') #builds payload for request
+        req = pytrends.related_queries() #calls related queries based on input
+        req2 = req[trends]
+        print(req)
+        print(req2)
+        trendyboiData = {}
+        trendyboiData['rising1'] = req2["rising"]["query"][0] #takes the #1 rising from query
+        trendyboiData['top1'] = req2['top']['query'][0]
+        trendData.append(trendyboiData)
+    context = {'pyTrendsData': trendData, 'form': form}
+    return render(request, 'Trends/trendy.html',context)  # IMPORTANT ADD IN NEW PAGE OR GO INTO EXISTING MAIN TREND PAGE FOR SEARCH, maybe have it in the search bar?
 
 
 def yelp_query(request):
@@ -22,9 +39,17 @@ def yelp_query(request):
     YELP_API_KEY = '4F_2Zz_KqR8W9sQGdEOr3W8kvMLHrHhjmZwaIIKWnz95thdXigFNVa6LTd7QZ0mOf8gAb4IGX_bKa-_qPBWeIW__-gTFhCdRUbwZu-jWNzTqI5PBdlI41U2W9KSvXXYx'
     YELP_SEARCH = 'https://api.yelp.com/v3/businesses/search'.format(business_id)
 
+    err_msg = ''
     if request.method == 'POST':
         form = RestaurantForm(request.POST)
         form.save()
+        if form.is_valid():
+            new_search = form.cleaned_data['name']
+            existing_search_count = catParams.objects.filter(name=new_search).count()
+            if existing_search_count == 0:
+                form.save()
+            else:
+                err_msg = 'Search is already in database!'
 
     form = RestaurantForm()
 
@@ -37,15 +62,16 @@ def yelp_query(request):
         parsedData = []
         jsonList = json.loads(req.text)
         businesses = jsonList["businesses"]
-        for yelp in  businesses:
+        for yelp in businesses:
             yelpData = {}
             yelpData['name'] = yelp["name"]
-            yelpData['location'] = yelp["location"]["display_address"]
+            yelpData['location'] = yelp["location"]["display_address"][0]
             yelpData['rating'] = yelp["rating"]
             yelpData['phone'] = yelp["phone"]
             parsedData.append(yelpData)
-        restaurant_data.append(parsedData)
-    context = {'restaurant_data' : restaurant_data, 'form':form}
+            context = {'restaurant_data' : parsedData, 'form':form}
+     #   restaurant_data.append(parsedData)
+    #context = {'restaurant_data' : restaurant_data, 'form':form}
     return render(request,'Trends/yelp.html', context)
 
 

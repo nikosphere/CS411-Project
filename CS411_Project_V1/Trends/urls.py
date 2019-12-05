@@ -11,5 +11,6 @@ urlpatterns = [
     #will give you a specific place for your favorite
     path('<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('yelp/', views.yelp_query, name ='search'),
+    path('trendy/', views.pytrends_query, name = 'trendSearch'),
     path('register', views.UserFormView.as_view(), name ='register')
 ]

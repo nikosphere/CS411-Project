@@ -1,20 +1,25 @@
 from django import forms
-from django.forms import ModelForm, TextInput
 from django.conf import settings
 from django.contrib.auth.models import User
 import requests
-from .models import catParams
+from .models import catParams, trendParams
 
 
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, Form
 
 
 class RestaurantForm(ModelForm):
     class Meta:
         model = catParams
         fields = ['name']
-        widgets = {'name' : TextInput(attrs={'class' : 'input', 'placeholder' : 'Look-up'})}
+        widgets = {'name': TextInput(attrs={'class': 'input', 'placeholder': 'Look-up'})}
 
+class TrendForm(ModelForm):
+    #example = forms.CharField(label='trends', widget=forms.TextInput(attrs={'placeholder':'Look-up'}))
+    class Meta:
+        model = trendParams
+        fields = ['trends']
+        widget = {'trends': TextInput(attrs={'class': 'form-control', 'placeholder': 'Look Up'})}
 
 
 class UserForm(forms.ModelForm):
@@ -23,28 +28,3 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
-
-
-class yelpSearch(forms.Form):
-    word = forms.CharField(max_length=200)
-
-    def search(self):
-        result = {}
-        word = self.cleaned_data['word']
-        endpoint = 'https://api.yelp.com/v3/businesses/{id}'
-        url = endpoint.format(source_lang='en', word_id = word)
-        headers = {'app_id':settings.YELP_APP_ID, 'app_key':settings.YELP_APP_KEY}
-        response = requests.get(url, headers=headers)
-        #check if response
-        if response.status_code == 200:
-            result = response.json()
-            result['success'] = True
-        else:
-            result['success'] = False
-            if response.status_code == 404:  #not found
-                result['message'] = 'No entry found for "%s"' % word
-            else:
-                result['message'] = 'The Yelp API is not available at the moment. Please try again later.'
-            return result
-
-
