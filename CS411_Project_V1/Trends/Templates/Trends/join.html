@@ -1,0 +1,28 @@
+ <!-- templates/join.html -->
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'trends/style.css' %}"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+
+<img src="Trends/static/trends/images/CityTrend.png" alt="CityTrend" align="middle">
+
+    <div class="container">
+        {% block title %} Sign in {% endblock %}
+        {% block content %}
+        <div class="row">
+            <div class="col-md-8 mx-auto social-container my-2 order-md-1">
+                <button class="btn btn-danger  mb-2">
+                    <a href="#" style="color:#FFFFFF;">Login with Instagram</a>
+                </button>
+             <button class="btn btn-primary mb-2">
+                    <a href="{% url 'Trends:social:begin' 'google-oauth2' %}" style="color:#FFFFFF;">Login with Google</a>
+                </button>
+            </div>
+        </div></div>
+        {% endblock %}

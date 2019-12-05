@@ -13,4 +13,9 @@ urlpatterns = [
     path('yelp/', views.yelp_query, name ='search'),
     path('trendy/', views.pytrends_query, name = 'trendSearch'),
     path('register', views.UserFormView.as_view(), name ='register')
+    path('register', views.UserFormView.as_view(), name ='register'),
+    # login via fb
+    path("join/", views.login, name='join'),
+    path('social-auth/', include('social_django.urls', namespace="social")),
+    # path("", views.home, name="home"),
 ]
