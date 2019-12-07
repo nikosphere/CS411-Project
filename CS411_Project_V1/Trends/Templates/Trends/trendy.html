@@ -19,7 +19,15 @@
 
     {% endif %}
     </ul>
-</li>                   {% comment %} <form method="POST" role = "form">
+</li>
+    <h3>Enter a cusines,dietary preferences,random meal or food and we will give you random recipes and restaurants!</h3>
+    <h4>Separated by commas,please!</h4>
+    <form action="http://127.0.0.1:8000/trends/random/" method="POST">{% csrf_token %}
+        <input type="text" name="input" value="foods here!"/>
+        <p><input type="submit" value="Get random recipes"</p>
+    </form>
+
+    {% comment %} <form method="POST" role = "form">
                         {% csrf_token %}
                         <div class="form-group">
                             <div class="input-group">

@@ -3,8 +3,6 @@ from django.conf import settings
 from django.contrib.auth.models import User
 import requests
 from .models import catParams, trendParams
-
-
 from django.forms import ModelForm, TextInput, Form
 
 

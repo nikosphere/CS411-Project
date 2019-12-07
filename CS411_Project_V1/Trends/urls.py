@@ -1,5 +1,3 @@
-from django.contrib:qa!
-import admin
 from . import views
 from django.urls import path
 from django.conf.urls import include

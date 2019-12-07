@@ -67,9 +67,20 @@ def pytrends_query(request):
 
 def get_random_recipe(request):
 
+    if request.method == "POST":
+        random = request.POST['input']
+        recipe_list = random.split(",")
+
+        recipestring = ""
+        for i in range(len(recipe_list)):
+            if i != len(recipe_list) -1:
+                recipestring += recipe_list[i] + "%2C"
+            else:
+                recipestring += recipe_list[i]
+    print(recipestring)
     url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random"
 
-    querystring = {"number":"3","tags":"vegetarian%2Cmexican"}
+    querystring = {"number":"3","tags":recipestring}
 
     headers = {
         'x-rapidapi-host': "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
@@ -107,6 +118,7 @@ def yelp_query(request):
     err_msg = ''
     if request.method == 'POST':
             form = request.POST.get('input')
+            location = request.POST.get('location')
         #form = RestaurantForm(request.POST)
         #form.save()
         #if form.is_valid():
@@ -124,7 +136,7 @@ def yelp_query(request):
     restaurant_data = []
     for name in names:
         headers = {'Authorization': 'Bearer %s' % YELP_API_KEY}
-        params = {'term': name, 'location': 'Boston'}
+        params = {'term': name, 'location': location}
         req = requests.get(YELP_SEARCH, headers=headers, params=params)
         parsedData = []
         jsonList = json.loads(req.text)
