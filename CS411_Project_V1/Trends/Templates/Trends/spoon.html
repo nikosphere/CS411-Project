@@ -9,9 +9,14 @@
 
                         </div>
                     </form>
+<<<<<<< HEAD
 <h3>Enter your location and then select a recipe you like, we will recommend you similar restaurants in your area!</h3>
     <form action="http://127.0.0.1:8000/trends/yelp/" method="POST">{% csrf_token %}
             <input type="text" name="location" value="location here!"/>
+=======
+
+    <form action="http://127.0.0.1:8000/trends/yelp/" method="POST">{% csrf_token %}
+>>>>>>> origin/master
         {%  for r in recipe %}
             <input type="submit" name="input" value='{{ r.title }}'/>
         {% endfor %}
