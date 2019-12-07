@@ -1,8 +1,25 @@
 {% extends 'Trends/base.html' %}
 {% block body %}
     <h2>PyTrends </h2>
+            <form method ="POST" action=".">
+            {% csrf_token %}
+            <input type ="text" name = "trends" value="{{F}}" />
+            <p>
+                <input type="submit" name ="finalPy" value ="Trends" />
+            </p>
+            </form>
+<li>
+    <ul>
+    {% if pytResult %}
+        <li>{{ pytResult.0}}</li>
+        <li>{{ pytResult.1 }}</li>
+        <li>{{ pytResult.2 }}</li>
+        <li>{{ pytResult.3 }}</li>
+        <li>{{ pytResult.4 }}</li>
 
-                    <form method="POST" role = "form">
+    {% endif %}
+    </ul>
+</li>                   {% comment %} <form method="POST" role = "form">
                         {% csrf_token %}
                         <div class="form-group">
                             <div class="input-group">
@@ -14,12 +31,12 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
-{% for trends in pyTrendsData %}
+                    </form>{% endcomment %}
+{% comment %}{% for trends in pyTrendsData %}
     <ul>
         <li>{{ trends.top1}}</li>
         <li>{{ trends.rising1}}</li>
     </ul>
 
-  {% endfor %}
+  {% endfor %}{% endcomment %}
 {% endblock %}

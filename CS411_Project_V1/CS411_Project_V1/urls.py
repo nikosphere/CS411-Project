@@ -22,5 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("trends/", include('Trends.urls')),
     path("join/", include('Trends.urls')),
-
+    path('random/', include('Trends.urls')),
 ]
