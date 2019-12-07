@@ -40,30 +40,6 @@ def pytrends_query(request):
         contextEmpty = {}
         return render(request, 'Trends/trendy.html', contextEmpty)
 
-
-# def pytrends_query(request):
-#     if request.method == 'POST':
-#         form = TrendForm(request.POST)
-#         form.save()
-#     form = TrendForm()
-#     trendData = []
-#     all_trends = trendParams.objects.all()
-#
-#     pytrends = TrendReq(hl='en-US', tz=360)  # calls pyTrends
-#     kw_list = [all_trends]  # calls form from forms.py for user input from HTML file
-#     pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d', geo='US', gprop='')  # builds payload for request
-#
-#     req = pytrends.related_queries() #calls related queries based on input
-#     req2 = req[all_trends]
-#     print(req)
-#     print(req2)
-#     trendyboiData = {}
-#     trendyboiData['rising1'] = req2["rising"]["query"][0] #takes the #1 rising from query
-#     trendyboiData['top1'] = req2['top']['query'][0]
-#     trendData.append(trendyboiData)
-#     context = {'pyTrendsData': trendData, 'form': form}
-#     return render(request, 'Trends/trendy.html',context)  # IMPORTANT ADD IN NEW PAGE OR GO INTO EXISTING MAIN TREND PAGE FOR SEARCH, maybe have it in the search bar?
-
 def login(request):
     return render(request, 'Trends/join.html')
 
@@ -79,19 +55,19 @@ def yelp_query(request):
 
     err_msg = ''
     if request.method == 'POST':
-        form = RestaurantForm(request.POST)
-        form.save()
-        if form.is_valid():
-            new_search = form.cleaned_data['name']
-            existing_search_count = catParams.objects.filter(name=new_search).count()
-            if existing_search_count == 0:
-                form.save()
-            else:
-                err_msg = 'Search is already in database!'
+        form = request.POST.get('input')
+        # form.save()
+        # if form.is_valid():
+        #     new_search = form.cleaned_data['name']
+        #     existing_search_count = catParams.objects.filter(name=new_search).count()
+        #     if existing_search_count == 0:
+        #         form.save()
+        #     else:
+        #         err_msg = 'Search is already in database!'
 
-    form = RestaurantForm()
+    #form = RestaurantForm()
 
-    names = catParams.objects.all()
+    names = [form]
     restaurant_data = []
     for name in names:
         headers = {'Authorization': 'Bearer %s' % YELP_API_KEY}
@@ -112,6 +88,30 @@ def yelp_query(request):
     #context = {'restaurant_data' : restaurant_data, 'form':form}
     return render(request,'Trends/yelp.html', context)
 
+def get_random_recipe(request):
+
+    url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random"
+
+    querystring = {"number":"3","tags":"vegetarian%2Cmexican"}
+
+    headers = {
+        'x-rapidapi-host': "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        'x-rapidapi-key': "973b1b54f6msh43f13f4453ca65cp1eeee4jsn4696d4dba525"
+        }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    jsonList = json.loads(response.text)
+    titles = jsonList["recipes"]
+    parsedData = []
+
+    for r in titles:
+        spoonData = {}
+        spoonData['title'] = r['title']
+        print(spoonData["title"])
+        parsedData.append(spoonData)
+        context = {'recipe': parsedData}
+
+    return render(request, 'Trends/spoon.html',context)
 
 class IndexView(generic.ListView):
     template_name = 'Trends/Index.html'
