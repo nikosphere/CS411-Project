@@ -11,21 +11,16 @@ import json
 
 
 def finalPy(word):
-    trendData = []
     pytrends = TrendReq(hl='en-US', tz=360)  # calls pyTrends
     kw_list = [word]  # calls form from forms.py for user input from HTML file
     pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d', geo='US', gprop='')
     req = pytrends.related_queries()
     req2 = req[word]
-    #trendyboiData = {}
     rising1 = req2["rising"]["query"][0]
     rising2 = req2["rising"]["query"][1]
     top1 = req2['top']['query'][0]
     top2 = req2['top']['query'][1]
     top3 = req2['top']['query'][2]
-    #trendyboiData['rising1'] = req2["rising"]["query"][0]  # takes the #1 rising from query
-    #trendyboiData['top1'] = req2['top']['query'][0]
-    #trendData.append(trendyboiData)
     return rising1,rising2,top1,top2,top3
 
 
@@ -33,8 +28,6 @@ def pytrends_query(request):
     if request.method == 'POST':
         pyt = request.POST['trends']
         pytResult = finalPy(pyt)
-        print(pytResult[0])
-        print(pytResult[1])
         return render(request, 'Trends/trendy.html',{'pytResult':pytResult},)
     else:
         contextEmpty = {}
