@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
 import os
 from decouple import config
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -40,6 +39,9 @@ SOCIAL_AUTH_URL_NAMESPACE = 'Trends:social'
 #google OAuth
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '845240979934-v93tsvh1e6gv7oi7j7do7bc1ot084oca.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'WzvHzUBMHnl-wVm0ryrbE4a_'
+
+#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_KEY']
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET']
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -72,9 +74,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = 'CS411_Project_V1.urls'
+
 
 AUTHENTICATION_BACKENDS = [
         'social_core.backends.instagram.InstagramOAuth2',

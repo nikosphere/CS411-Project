@@ -1,5 +1,7 @@
+from django.template.defaultfilters import title
 from pytrends.request import TrendReq
 from django.views import generic
+from django.contrib.auth.decorators import login_required
 from .models import Trends, catParams, trendParams
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
@@ -33,6 +35,32 @@ def pytrends_query(request):
     context = {'pyTrendsData': trendData, 'form': form}
     return render(request, 'Trends/trendy.html',context)  # IMPORTANT ADD IN NEW PAGE OR GO INTO EXISTING MAIN TREND PAGE FOR SEARCH, maybe have it in the search bar?
 
+def get_random_recipe(request):
+
+    url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random"
+
+    querystring = {"number":"3","tags":"vegetarian%2Cmexican"}
+
+    headers = {
+        'x-rapidapi-host': "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        'x-rapidapi-key': "973b1b54f6msh43f13f4453ca65cp1eeee4jsn4696d4dba525"
+        }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    jsonList = json.loads(response.text)
+    titles = jsonList["recipes"]
+    parsedData = []
+
+    for r in titles:
+        spoonData = {}
+        spoonData['title'] = r['title']
+        print(spoonData["title"])
+        parsedData.append(spoonData)
+        context = {'recipe': parsedData}
+
+    return render(request, 'Trends/spoon.html',context)
+
+
 def login(request):
     return render(request, 'Trends/join.html')
 
@@ -48,19 +76,21 @@ def yelp_query(request):
 
     err_msg = ''
     if request.method == 'POST':
-        form = RestaurantForm(request.POST)
-        form.save()
-        if form.is_valid():
-            new_search = form.cleaned_data['name']
-            existing_search_count = catParams.objects.filter(name=new_search).count()
-            if existing_search_count == 0:
-                form.save()
-            else:
-                err_msg = 'Search is already in database!'
+            form = request.POST.get('input')
+        #form = RestaurantForm(request.POST)
+        #form.save()
+        #if form.is_valid():
+        #    new_search = form.cleaned_data['name']
+        #    existing_search_count = catParams.objects.filter(name=new_search).count()
+        #    if existing_search_count == 0:
+        #        form.save()
+        #    else:
+        #        err_msg = 'Search is already in database!'
 
-    form = RestaurantForm()
+    #form = RestaurantForm()
 
-    names = catParams.objects.all()
+    #names = catParams.objects.all()
+    names=[form]
     restaurant_data = []
     for name in names:
         headers = {'Authorization': 'Bearer %s' % YELP_API_KEY}
@@ -68,6 +98,7 @@ def yelp_query(request):
         req = requests.get(YELP_SEARCH, headers=headers, params=params)
         parsedData = []
         jsonList = json.loads(req.text)
+        print(jsonList)
         businesses = jsonList["businesses"]
         for yelp in businesses:
             yelpData = {}

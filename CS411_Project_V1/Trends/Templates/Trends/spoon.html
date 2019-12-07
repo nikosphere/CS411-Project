@@ -1,0 +1,19 @@
+{% extends 'Trends/base.html' %}
+{% block body %}
+<h2>Random Recipes! </h2>
+    <h4 class="text-center"> Welcome {{ user.username }} </h4>
+
+<form method="POST">
+                        {% csrf_token %}
+                        <div class="field has-addons">
+
+                        </div>
+                    </form>
+
+    <form action="http://127.0.0.1:8000/trends/yelp/" method="POST">{% csrf_token %}
+        {%  for r in recipe %}
+            <input type="submit" name="input" value='{{ r.title }}'/>
+        {% endfor %}
+    </form>
+{% endblock %}
+
