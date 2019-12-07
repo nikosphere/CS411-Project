@@ -10,30 +10,60 @@ from .forms import UserForm, RestaurantForm, TrendForm
 import requests
 import json
 
-#questions
-#Cant seem to pass an input through the form and to the API properly?
-#Dictionary Parsing?
+
+def finalPy(word):
+    trendData = []
+    pytrends = TrendReq(hl='en-US', tz=360)  # calls pyTrends
+    kw_list = [word]  # calls form from forms.py for user input from HTML file
+    pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d', geo='US', gprop='')
+    req = pytrends.related_queries()
+    req2 = req[word]
+    #trendyboiData = {}
+    rising1 = req2["rising"]["query"][0]
+    rising2 = req2["rising"]["query"][1]
+    top1 = req2['top']['query'][0]
+    top2 = req2['top']['query'][1]
+    top3 = req2['top']['query'][2]
+    #trendyboiData['rising1'] = req2["rising"]["query"][0]  # takes the #1 rising from query
+    #trendyboiData['top1'] = req2['top']['query'][0]
+    #trendData.append(trendyboiData)
+    return rising1,rising2,top1,top2,top3
+
+
 def pytrends_query(request):
     if request.method == 'POST':
-        form = TrendForm(request.POST)
-        form.save()
-    form = TrendForm()
-    trendData = []
-    all_trends = trendParams.objects.all()
-    for trends in all_trends:
-        pytrends = TrendReq(hl='en-US', tz=360)  # calls pyTrends
-        kw_list = [trends] #calls form from forms.py for user input from HTML file
-        pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d', geo='US', gprop='') #builds payload for request
-        req = pytrends.related_queries() #calls related queries based on input
-        req2 = req[trends]
-        print(req)
-        print(req2)
-        trendyboiData = {}
-        trendyboiData['rising1'] = req2["rising"]["query"][0] #takes the #1 rising from query
-        trendyboiData['top1'] = req2['top']['query'][0]
-        trendData.append(trendyboiData)
-    context = {'pyTrendsData': trendData, 'form': form}
-    return render(request, 'Trends/trendy.html',context)  # IMPORTANT ADD IN NEW PAGE OR GO INTO EXISTING MAIN TREND PAGE FOR SEARCH, maybe have it in the search bar?
+        pyt = request.POST['trends']
+        pytResult = finalPy(pyt)
+        print(pytResult[0])
+        print(pytResult[1])
+        return render(request, 'Trends/trendy.html',{'pytResult':pytResult},)
+    else:
+        contextEmpty = {}
+        return render(request, 'Trends/trendy.html', contextEmpty)
+
+
+# def pytrends_query(request):
+#     if request.method == 'POST':
+#         form = TrendForm(request.POST)
+#         form.save()
+#     form = TrendForm()
+#     trendData = []
+#     all_trends = trendParams.objects.all()
+#
+#     pytrends = TrendReq(hl='en-US', tz=360)  # calls pyTrends
+#     kw_list = [all_trends]  # calls form from forms.py for user input from HTML file
+#     pytrends.build_payload(kw_list, cat=0, timeframe='now 7-d', geo='US', gprop='')  # builds payload for request
+#
+#     req = pytrends.related_queries() #calls related queries based on input
+#     req2 = req[all_trends]
+#     print(req)
+#     print(req2)
+#     trendyboiData = {}
+#     trendyboiData['rising1'] = req2["rising"]["query"][0] #takes the #1 rising from query
+#     trendyboiData['top1'] = req2['top']['query'][0]
+#     trendData.append(trendyboiData)
+#     context = {'pyTrendsData': trendData, 'form': form}
+#     return render(request, 'Trends/trendy.html',context)  # IMPORTANT ADD IN NEW PAGE OR GO INTO EXISTING MAIN TREND PAGE FOR SEARCH, maybe have it in the search bar?
 
 def get_random_recipe(request):
 
@@ -66,7 +96,7 @@ def login(request):
 
 @login_required
 def home(request):
-    return render(request, 'Trends/home.html')
+    return render(request, 'Trends/yelp.html')
 
 @login_required
 def yelp_query(request):
