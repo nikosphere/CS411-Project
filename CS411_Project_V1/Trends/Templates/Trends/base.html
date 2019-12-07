@@ -52,11 +52,14 @@
             </form>
 
             <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                    <a href="#">
-                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;Logout
-                    </a>
-                </li>
+                {% if user.is_authenticated %}
+      <font color="white">Logged as {{ user.username }}</font>
+      <a class="btn btn-primary" href="{% url 'Trends:logout' %}" /">Logout</a>
+    {% else %}
+      <a class="btn btn-primary" href="{% url 'Trends:social:begin' 'google-oauth2' %}">
+        Login
+      </a>
+    {% endif %}
             </ul>
 
         </div>

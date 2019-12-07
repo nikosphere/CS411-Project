@@ -1,19 +1,50 @@
 {% extends 'Trends/base.html' %}
-
-    <title>{% block title %} Results {% endblock %}</title>
-
 {% block body %}
-    <h2>Trends API</h2>
-    <p>Boston Night Life search <strong>{{ list }}</strong></p>
-    <img src="{{ trends.trendSearch }}">
-    <h1>{{ trends.trendLocation }}</h1>
-    <h3>{{ trends.trendCategory }}</h3>
-
+    <h2>PyTrends </h2>
+            <form method ="POST" action=".">
+            {% csrf_token %}
+            <input type ="text" name = "trends" value="{{F}}" />
+            <p>
+                <input type="submit" name ="finalPy" value ="Trends" />
+            </p>
+            </form>
+<li>
     <ul>
-        {% for yelpCategory in trends.yelpsearch_set.all %}
-            <li>{{ yelp1.yelpCategory}} - {{ yelp1.yelpLocation }}</li>
-        {% endfor%}
+    {% if pytResult %}
+        <li>{{ pytResult.0}}</li>
+        <li>{{ pytResult.1 }}</li>
+        <li>{{ pytResult.2 }}</li>
+        <li>{{ pytResult.3 }}</li>
+        <li>{{ pytResult.4 }}</li>
 
+    {% endif %}
+    </ul>
+</li>
+    <h3>Enter a cusines,dietary preferences,random meal or food and we will give you random recipes and restaurants!</h3>
+    <h4>Separated by commas,please!</h4>
+    <form action="http://127.0.0.1:8000/trends/random/" method="POST">{% csrf_token %}
+        <input type="text" name="input" value="foods here!"/>
+        <p><input type="submit" value="Get random recipes"</p>
+    </form>
+
+    {% comment %} <form method="POST" role = "form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <div class="input-group">
+                                {{ form.trends }}
+                            </div>
+                            <div class="control">
+                                <button type="submit" class="button is-info">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>{% endcomment %}
+{% comment %}{% for trends in pyTrendsData %}
+    <ul>
+        <li>{{ trends.top1}}</li>
+        <li>{{ trends.rising1}}</li>
     </ul>
 
+  {% endfor %}{% endcomment %}
 {% endblock %}

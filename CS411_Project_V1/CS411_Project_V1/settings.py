@@ -30,8 +30,8 @@ ALLOWED_HOSTS = []
 #Redirect User Post-Authentication
 LOGIN_URL = '/auth/login/google-oauth2/'
 LOGIN_REDIRECT_URL = '/trends/trendy'
-LOGOUT_URL = 'logout'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_URL = '/trends/logout'
+LOGOUT_REDIRECT_URL = '/trends'
 
 #SOCIAL AUTH URL
 SOCIAL_AUTH_URL_NAMESPACE = 'Trends:social'

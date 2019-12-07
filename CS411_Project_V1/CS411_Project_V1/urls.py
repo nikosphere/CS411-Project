@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.conf import settings
+from django.contrib.auth.views import auth_logout
 
 
 urlpatterns = [
@@ -23,4 +25,5 @@ urlpatterns = [
     path("trends/", include('Trends.urls')),
     path("join/", include('Trends.urls')),
     path('random/', include('Trends.urls')),
+    path('logout/', include('Trends.urls')),
 ]

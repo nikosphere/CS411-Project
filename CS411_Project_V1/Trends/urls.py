@@ -1,8 +1,7 @@
-from . import views
-from django.urls import path
-from django.conf.urls import include
+from django.conf import settings
 from django.urls import path, include
-from django.conf.urls import url
+
+from . import views
 
 app_name = 'Trends'
 urlpatterns = [
@@ -18,6 +17,7 @@ urlpatterns = [
     path('register', views.UserFormView.as_view(), name ='register'),
     # login via fb
     path("join/", views.login, name='join'),
+    path('logout/', views.logout, name='logout'),
     path('social-auth/', include('social_django.urls', namespace="social")),
     # path("", views.home, name="home"),
 ]

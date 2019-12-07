@@ -2,20 +2,13 @@
 {% block body %}
 <h2>Yelp Recommendations </h2>
 
-<form method="POST">
+
                         {% csrf_token %}
                         <div class="field has-addons">
                             <div class="control is-expanded">
-                                {{ form.name }}
                                 <h4 class="text-center"> Welcome {{ user.username }} </h4>
                             </div>
-                            <div class="control">
-                                <button type="submit" class="button is-info">
-                                    Submit
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+
 
 
    {% for restaurant in restaurant_data %}

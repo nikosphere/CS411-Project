@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Trends, catParams, trendParams
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout as auth_logout
 from django.views.generic import View
 from .forms import UserForm, RestaurantForm, TrendForm
 import requests
@@ -106,6 +107,10 @@ def login(request):
     return render(request, 'Trends/join.html')
 
 @login_required
+def logout(request):
+    auth_logout(request)
+    return redirect('/trends/join')
+
 def home(request):
     return render(request, 'Trends/yelp.html')
 
@@ -156,7 +161,7 @@ def yelp_query(request):
 
 
 class IndexView(generic.ListView):
-    template_name = 'Trends/Index.html'
+    template_name = 'Trends/detail.html'
     context_object_name = 'all_favorites'
     def get_queryset(self):
         return Trends.objects.all()
