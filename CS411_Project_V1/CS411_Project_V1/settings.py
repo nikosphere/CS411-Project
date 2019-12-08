@@ -29,9 +29,9 @@ ALLOWED_HOSTS = []
 
 #Redirect User Post-Authentication
 LOGIN_URL = '/auth/login/google-oauth2/'
-LOGIN_REDIRECT_URL = '/trends/yelp'
+LOGIN_REDIRECT_URL = '/trends/'
 LOGOUT_URL = 'logout'
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/trends/join/'
 
 #SOCIAL AUTH URL
 SOCIAL_AUTH_URL_NAMESPACE = 'Trends:social'

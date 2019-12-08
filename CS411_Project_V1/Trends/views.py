@@ -3,9 +3,9 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from .models import Trends, catParams, trendParams
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.views.generic import View
-from .forms import UserForm, RestaurantForm, TrendForm
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from .forms import RegistrationForm, EditProfileForm
 import requests
 import json
 
@@ -28,10 +28,13 @@ def pytrends_query(request):
     if request.method == 'POST':
         pyt = request.POST['trends']
         pytResult = finalPy(pyt)
-        return render(request, 'Trends/trendy.html',{'pytResult':pytResult},)
+        return render(request, 'Trends/Index.html',{'pytResult':pytResult},)
     else:
         contextEmpty = {}
-        return render(request, 'Trends/trendy.html', contextEmpty)
+        return render(request, 'Trends/Index.html', contextEmpty)
+
+def pyTrends(request):
+    return render(request,'Trends/pyTrends.html')
 
 def login(request):
     return render(request, 'Trends/join.html')
@@ -49,22 +52,13 @@ def yelp_query(request):
     err_msg = ''
     if request.method == 'POST':
         form = request.POST.get('input')
-        # form.save()
-        # if form.is_valid():
-        #     new_search = form.cleaned_data['name']
-        #     existing_search_count = catParams.objects.filter(name=new_search).count()
-        #     if existing_search_count == 0:
-        #         form.save()
-        #     else:
-        #         err_msg = 'Search is already in database!'
-
-    #form = RestaurantForm()
-
+        location = request.POST.get('location')
+#need to parse json file for pictures
     names = [form]
     restaurant_data = []
     for name in names:
         headers = {'Authorization': 'Bearer %s' % YELP_API_KEY}
-        params = {'term': name, 'location': 'Boston'}
+        params = {'term': name, 'location': location}
         req = requests.get(YELP_SEARCH, headers=headers, params=params)
         parsedData = []
         jsonList = json.loads(req.text)
@@ -77,8 +71,6 @@ def yelp_query(request):
             yelpData['phone'] = yelp["phone"]
             parsedData.append(yelpData)
             context = {'restaurant_data' : parsedData, 'form':form}
-     #   restaurant_data.append(parsedData)
-    #context = {'restaurant_data' : restaurant_data, 'form':form}
     return render(request,'Trends/yelp.html', context)
 
 def get_random_recipe(request):
@@ -116,36 +108,43 @@ class DetailView(generic.DetailView):
     model = Trends
     template_name = 'Trends/detail.html'
 
-class UserFormView(View):
-    form_class = UserForm
-    template_name = 'Trends/registration_form.html'
+def register(request):
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('http://127.0.0.1:8000/trends/trendy')
+    else:
+        form = RegistrationForm()
+        context = {'form':form}
+        return render(request, 'Trends/registration.html', context)
+def view_profile(request):
+    context = {'user':request.user}
+    return render(request,'Trends/profile.html',context)
 
-    #display blank form, when a new user comes into the site
-    def get(self,request):
-        form = self.form_class(None)
-        return render(request, self.template_name, {'form':form})
-
-    #process form data into databse
-
-    def post(self, request):
-        form = self.form_class(request.POST or None)
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
 
         if form.is_valid():
+            form.save()
+            return redirect('http://127.0.0.1:8000/trends/profile/')
+    else:
+        form = EditProfileForm(instance=request.user)
+        context = {'form': form}
+        return render(request,'trends/edit_profile.html', context)
 
-            user = form.save(commit=False)
+def change_password(request):
+    if request.method=="POST":
+        form = PasswordChangeForm(data = request.POST, user=request.user)
 
-            #clean, normalized data
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user.set_password(password)
-            user.save()
-
-            #return User objects if credentials are correct
-            user = authenticate(username=username, password=password)
-
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return redirect('Trends:trends')
-
-        return render(request, self.template_name, {'form': form})
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('trends/edit_profile.html')
+        else:
+            return redirect('trends/change_password.html')
+    else:
+        form = PasswordChangeForm(user=request.user)
+        context = {'form':form}
+        return render(request,'trends/change_password.html',context)

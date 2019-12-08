@@ -1,0 +1,12 @@
+{% extends 'Trends/base.html' %}
+
+
+
+<h3>Enter your location and then select the options from the trending list that you like, then we will recommend similar activities or restaurants in your area!</h3>
+    <form action="http://127.0.0.1:8000/trends/yelp/" method="POST">{% csrf_token %}
+            <input type="text" name="location" value="location here!"/>
+    <form action="http://127.0.0.1:8000/trends/yelp/" method="POST">{% csrf_token %}
+    {% for r in  pytResult %}
+        <li><input type="submit" name="input" value='{{r}}'/></li>
+    {%  endfor%}
+    </form>
