@@ -1,11 +1,13 @@
 from pytrends.request import TrendReq
 from django.views import generic
+from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from .models import Trends, catParams, trendParams
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from .forms import RegistrationForm, EditProfileForm
+from .forms import RegistrationForm, EditProfileForm, InterestForm, FoodRecipeForm
+from decouple import config
 import requests
 import json
 
@@ -46,7 +48,7 @@ def home(request):
 @login_required
 def yelp_query(request):
     business_id = '_b_RUDVdh3IY_pNDXn2rPw'
-    YELP_API_KEY = '4F_2Zz_KqR8W9sQGdEOr3W8kvMLHrHhjmZwaIIKWnz95thdXigFNVa6LTd7QZ0mOf8gAb4IGX_bKa-_qPBWeIW__-gTFhCdRUbwZu-jWNzTqI5PBdlI41U2W9KSvXXYx'
+    YELP_API_KEY = config('YELP_API_KEY', default = '')
     YELP_SEARCH = 'https://api.yelp.com/v3/businesses/search'.format(business_id)
 
     err_msg = ''
@@ -69,6 +71,7 @@ def yelp_query(request):
             yelpData['location'] = yelp["location"]["display_address"][0]
             yelpData['rating'] = yelp["rating"]
             yelpData['phone'] = yelp["phone"]
+            yelpData['image'] = yelp["image_url"]
             parsedData.append(yelpData)
             context = {'restaurant_data' : parsedData, 'form':form}
     return render(request,'Trends/yelp.html', context)
@@ -81,7 +84,7 @@ def get_random_recipe(request):
 
     headers = {
         'x-rapidapi-host': "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-        'x-rapidapi-key': "973b1b54f6msh43f13f4453ca65cp1eeee4jsn4696d4dba525"
+        'x-rapidapi-key': config('SPOON_API', default ='')
         }
 
     response = requests.request("GET", url, headers=headers, params=querystring)
@@ -92,17 +95,43 @@ def get_random_recipe(request):
     for r in titles:
         spoonData = {}
         spoonData['title'] = r['title']
-        print(spoonData["title"])
+        spoonData['photo'] = r['image']
         parsedData.append(spoonData)
         context = {'recipe': parsedData}
 
     return render(request, 'Trends/spoon.html',context)
 
-class IndexView(generic.ListView):
+class IndexView(TemplateView):
     template_name = 'Trends/Index.html'
-    context_object_name = 'all_favorites'
-    def get_queryset(self):
-        return Trends.objects.all()
+
+    def get(self, request):
+        form = InterestForm()
+        context = {'form': form}
+        return render(request, 'Trends/Index.html', context)
+
+    def post(self,request):
+        form = InterestForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data['trends']
+        context = {'form':form, 'trends': text}
+        return render(request, 'Trends/Index.html', context)
+    # implement recipe form same way as above
+
+def food_FormRecipe(request):
+
+    if request.method =="POST":
+        form = FoodRecipeForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data['recipe']
+        context = {'recipeForm': form, 'recipe': text}
+        return render(request, 'Trends/Index.html', context )
+    else:
+        form = FoodRecipeForm()
+        context = {'recipeForm': form}
+        return render(request, 'Trends/Index.html',context)
+    #add it into HTML and then done
+
+
 
 class DetailView(generic.DetailView):
     model = Trends
@@ -113,7 +142,7 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('http://127.0.0.1:8000/trends/trendy')
+            return redirect('http://127.0.0.1:8000/trends/')
     else:
         form = RegistrationForm()
         context = {'form':form}
@@ -148,3 +177,9 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user)
         context = {'form':form}
         return render(request,'trends/change_password.html',context)
+
+
+def get(request):
+    form = InterestForm()
+    context = {'form':form}
+    return render(request, 'Trends/Index.html',context)

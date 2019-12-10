@@ -12,6 +12,7 @@
         <li>{{ restaurant.name}} {{ restaurant.location }}</li>
         <li>{{ restaurant.rating }}</li>
         <li>{{ restaurant.phone }}</li>
+        <li><img src ="{{ restaurant.image }}" alt = "{{ restaurant.name }}" style="width: 200px; height: 200px;"></li>
     </ul>
   {% endfor %}
 {% endblock %}

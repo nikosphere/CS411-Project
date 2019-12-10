@@ -19,11 +19,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'kz-o7fvt--(o@ivo1h11mqxz)#r1zb0bw4*-0#@-&9(wcg3ead'
+#SECRET_KEY= os.environ['SECRET_KEY']
 YELP_APP_ID = config("YELP_APP_ID", default='')
-YELP_APP_KEY = config("YELP_APP_KEY", default='')
+YELP_API_KEY = config("YELP_API_KEY", default='')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = []
 
@@ -37,18 +37,16 @@ LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/trends/join/'
 SOCIAL_AUTH_URL_NAMESPACE = 'Trends:social'
 
 #google OAuth
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '845240979934-v93tsvh1e6gv7oi7j7do7bc1ot084oca.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'WzvHzUBMHnl-wVm0ryrbE4a_'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY', default = '')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET', default = '')
 
-#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_KEY']
-#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET']
+
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -155,3 +153,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+from .local_settings import *

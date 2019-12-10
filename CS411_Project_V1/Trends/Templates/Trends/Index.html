@@ -3,12 +3,11 @@
 {% extends 'Trends/base.html' %}
 {% block body %}
 
-
 {% if pytResult %}
 <h3>Enter your location and then select a recipe you like, we will recommend you similar restaurants in your area!</h3>
-
     <form action="http://127.0.0.1:8000/trends/yelp/" method="POST">{% csrf_token %}
-            <input type="text" name="location" value='location here!'/>
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location" value=''/>
     <form action="http://127.0.0.1:8000/trends/yelp/" method="POST">{% csrf_token %}
     {% for r in  pytResult %}
         <li><input type="submit" name="input" value='{{r}}'/></li>
@@ -19,17 +18,17 @@
     <h1>Please put in your city and what your terms to search for!</h1>
             <form method="POST" action="http://127.0.0.1:8000/trends/pyTrends/">
             {% csrf_token %}
-            <input type ="text" name = "trends" value="Input City and Trend" />
+                {{ form.trends }}
             <p>
                 <input type="submit" name ="finalPy" value ="Trends" />
             </p>
             </form>
 
-        <h3>Enter a cusines,dietary preferences,random meal or food and we will give you random recipes and restaurants!</h3>
+        <h3>Enter a cuisine,dietary preferences,random meal or food and we will give you random recipes and restaurants!</h3>
     <h4>Separated by commas,please!</h4>
     <form action="http://127.0.0.1:8000/trends/random/" method="POST">{% csrf_token %}
-        <input type="text" name="input" value="foods here!"/>
-        <p><input type="submit" value="Get random recipes"</p>
+        {{ form.recipe }}
+        <p><input type="submit" value="Get random recipes"/></p>
     </form>
     {% endif %}
 {% endblock %}

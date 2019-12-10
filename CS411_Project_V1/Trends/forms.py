@@ -51,3 +51,10 @@ class EditProfileForm(UserChangeForm):
             'last_name',
             'password'
         )
+
+class InterestForm(forms.Form):
+    trends = forms.CharField(required= False, widget=forms.TextInput(attrs={'placeholder': 'Enter keyword'}))
+    recipe = forms.CharField(required = False, widget=forms.TextInput(attrs={'placeholder': 'Enter Recipe'}))
+    location = forms.CharField(required = False, widget=forms.TextInput(attrs={'placeholder': 'Enter Location'}))
+class FoodRecipeForm(forms.Form):
+    recipe = forms.CharField(required = False, widget=forms.TextInput(attrs={'placeholder': 'Enter Recipe'}))
