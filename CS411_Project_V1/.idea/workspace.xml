@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6c4aa8f8-9e24-45c6-86b6-f31c09b47923" name="Default Changelist" comment="codeCleanUp">
-      <change afterPath="$PROJECT_DIR$/Trends/Templates/Trends/change_password.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Trends/Templates/Trends/edit_profile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Trends/Templates/Trends/logout.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Trends/Templates/Trends/profile.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Trends/Templates/Trends/pyTrends.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Trends/Templates/Trends/registration.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Trends/Templates/Trends/user_login.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Trends/migrations/0011_favorites.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Trends/migrations/0012_userprofile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CS411_Project_V1/local_settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Trends/Templates/Trends/Sign_In.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Trends/static/trends/join.css" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/node_modules/bootstrap/LICENSE" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/node_modules/bootstrap/README.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/node_modules/bootstrap/dist/css/bootstrap-grid.css" afterDir="false" />
@@ -163,21 +158,10 @@
       <change afterPath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_text.scss" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/node_modules/bootstrap/scss/utilities/_visibility.scss" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/node_modules/bootstrap/scss/vendor/_rfs.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/CS411_Project_V1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CS411_Project_V1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CS411_Project_V1/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/CS411_Project_V1/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trends/Templates/Trends/Index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/Templates/Trends/Index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Trends/Templates/Trends/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/Templates/Trends/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trends/Templates/Trends/join.html" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/Templates/Trends/join.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trends/Templates/Trends/registration_form.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trends/Templates/Trends/spoon.html" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/Templates/Trends/spoon.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trends/Templates/Trends/trendy.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trends/Templates/Trends/yelp.html" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/Templates/Trends/yelp.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trends/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trends/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Trends/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trends/Templates/Trends/registration.html" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/Templates/Trends/registration.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Trends/Templates/Trends/user_login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/Templates/Trends/user_login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Trends/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Trends/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Trends/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
@@ -213,9 +197,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
-        <option value="Python Script" />
         <option value="JavaScript File" />
+        <option value="Python Script" />
+        <option value="CSS File" />
         <option value="HTML File" />
       </list>
     </option>
@@ -325,6 +309,9 @@
       <workItem from="1573939262874" duration="5997000" />
       <workItem from="1574358577508" duration="11857000" />
       <workItem from="1575487801561" duration="10258000" />
+      <workItem from="1575934678970" duration="6051000" />
+      <workItem from="1575940825790" duration="2312000" />
+      <workItem from="1575953956214" duration="10078000" />
     </task>
     <task id="LOCAL-00001" summary="test commit">
       <created>1575591144878</created>
@@ -354,7 +341,21 @@
       <option name="project" value="LOCAL" />
       <updated>1575739153257</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="FunctionalWebsitePush">
+      <created>1575805509397</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1575805509397</updated>
+    </task>
+    <task id="LOCAL-00006" summary="FinalBackendPush">
+      <created>1575942378567</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1575942378567</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -379,7 +380,9 @@
     <MESSAGE value="pytrendsDone" />
     <MESSAGE value="Spoonacular Push" />
     <MESSAGE value="codeCleanUp" />
-    <option name="LAST_COMMIT_MESSAGE" value="codeCleanUp" />
+    <MESSAGE value="FunctionalWebsitePush" />
+    <MESSAGE value="FinalBackendPush" />
+    <option name="LAST_COMMIT_MESSAGE" value="FinalBackendPush" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CS411_Project_V1$manage.coverage" NAME="manage Coverage Results" MODIFIED="1575582202046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

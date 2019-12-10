@@ -26,9 +26,12 @@ urlpatterns = [
     path('edit/', views.edit_profile, name = 'edit_profile'),
     #change the password of your account
     path('change-password', views.change_password, name='change_password'),
+    #new login page
+    path('join/', LoginView.as_view(template_name='trends/Sign_In.html'), name='newJoin'),
     #change password through email
     # login via fb
-    path("join/", views.login, name='join'),
+    #path('join/', views.login, name='join'),
     path('social-auth/', include('social_django.urls', namespace="social")),
+
     # path("", views.home, name="home"),
 ]

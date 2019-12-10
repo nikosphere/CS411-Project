@@ -131,7 +131,8 @@ def food_FormRecipe(request):
         return render(request, 'Trends/Index.html',context)
     #add it into HTML and then done
 
-
+class loginView(TemplateView):
+    template_name = 'Trends/Sign_In.html'
 
 class DetailView(generic.DetailView):
     model = Trends
@@ -147,6 +148,7 @@ def register(request):
         form = RegistrationForm()
         context = {'form':form}
         return render(request, 'Trends/registration.html', context)
+
 def view_profile(request):
     context = {'user':request.user}
     return render(request,'Trends/profile.html',context)

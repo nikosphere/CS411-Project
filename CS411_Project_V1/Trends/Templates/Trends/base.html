@@ -47,7 +47,7 @@
       <font color="white">Logged as {{ user.username }}</font>
       <a class="btn btn-primary" href="{% url 'Trends:logout' %}">Logout</a>
     {% else %}
-      <a class="btn btn-primary" href="{% url 'Trends:join' %}">
+      <a class="btn btn-primary" href="{% url 'Trends:newJoin' %}">
         Login
       </a></ul>
     {% endif %}
