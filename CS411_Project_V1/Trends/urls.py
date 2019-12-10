@@ -32,6 +32,6 @@ urlpatterns = [
     # login via fb
     #path('join/', views.login, name='join'),
     path('social-auth/', include('social_django.urls', namespace="social")),
-
+    path('about', views.about, name='about'),
     # path("", views.home, name="home"),
 ]

@@ -7,12 +7,11 @@
 
 {% block body%}
 <div class="container">
-    <h1>Profile</h1>
-
-        <p>Username: {{ user }}</p>
-        <p>First name: {{ user.first_name }}</p>
-        <p>Last name: {{user.last_name }}</p>
-        <p>Email: {{ user.email }}</p>
-        <p>Interest One: {{ user.userprofile.interest1 }}</p>
+    <h1 style="font-family: Georgia">Personal Profile</h1>
+        <p style="font-family: Georgia">Username: {{ user }}</p>
+        <p style="font-family: Georgia">First name: {{ user.first_name }}</p>
+        <p style="font-family: Georgia">Last name: {{user.last_name }}</p>
+        <p style="font-family: Georgia">Email: {{ user.email }}</p>
+        <p style="font-family: Georgia">Interest One: {{ user.userprofile.interest1 }}</p>
     </div>
 {% endblock %}

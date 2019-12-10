@@ -131,6 +131,9 @@ def food_FormRecipe(request):
         return render(request, 'Trends/Index.html',context)
     #add it into HTML and then done
 
+def about(request):
+    return render(request, 'Trends/about.html')
+
 class loginView(TemplateView):
     template_name = 'Trends/Sign_In.html'
 

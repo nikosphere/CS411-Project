@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'trends/style.css' %}"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 
 </head>
 
@@ -23,9 +24,11 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
         <!-- Need to create an about page, you can do this in HTML and CSS only. It is just text-->
-      <a class="nav-item nav-link active" href="#">About<span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link active" href="{% url 'Trends:about' %}">About<span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="{% url 'Trends:profile' %}">Profile</a>
-      <a class="nav-item nav-link" href="#">Pricing</a>
+      <a class="nav-item nav-link" href="{% url 'Trends:edit_profile' %}">Change Profile</a>
+        <a class="nav-item nav-link" href="{% url 'Trends:change_password' %}">Change Password</a>
+
       <li class="nav-item dropdown">
 
           <!-- I want to have this as a drop down but it is not working.-->
@@ -43,11 +46,12 @@
     </div>
     <!-- This needs to get moved to the right, should be on the bootstrap website-->
     <ul class="form-inline my-3 my-lg-0">
-                {% if user.is_authenticated %}
-      <font color="white">Logged as {{ user.username }}</font>
-      <a class="btn btn-primary" href="{% url 'Trends:logout' %}">Logout</a>
+           {% if user.is_authenticated %}
+      <font color="white" style = "font-family: Georgia">{{ user.username }} </font>
+      <a class="btn btn-primary btn-xs" style = "font-family: Georgia" href="{% url 'Trends:logout' %}"><ion-icon name="logo-google"></ion-icon>Logout</a>
     {% else %}
-      <a class="btn btn-primary" href="{% url 'Trends:newJoin' %}">
+      <a class="btn btn-danger mb-2" style = "font-family: Georgia" href="{% url 'Trends:social:begin' 'google-oauth2' %}">
+        <ion-icon name="logo-google"></ion-icon>
         Login
       </a></ul>
     {% endif %}
