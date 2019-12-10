@@ -1,2 +1,3 @@
 CS411 Project
-group 3: Nikolay Valov, Oseremen Agboneni, Taylor Hazlett, Su Xiaoyan
+Group 3: Nikolay Valov, Oseremen Agboneni, Taylor Hazlett, Xiaoyan Su
+Notes: Team assignments are in the doc folder.
