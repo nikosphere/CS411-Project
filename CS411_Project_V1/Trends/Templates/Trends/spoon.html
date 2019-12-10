@@ -15,6 +15,7 @@
             <input type="text" name="location" value="location here!"/>
         {%  for r in recipe %}
             <input type="submit" name="input" value='{{ r.title }}'/>
+            <img src= "{{r.photo}}" alt="food" height="200" width="200">
         {% endfor %}
     </form>
 {% endblock %}
