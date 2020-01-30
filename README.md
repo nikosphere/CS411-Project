@@ -1,4 +1,4 @@
-CS411 Project
-Group 3: Nikolay Valov, Oseremen Agboneni, Taylor Hazlett, Xiaoyan Su
+CityTrends
 
-Notes: Team assignments are in the doc folder.
+A trending activity app that takes your location and asks you to input a keyword into the Google Trends API to allow you to plan a day or night out. It combines the Yelp API to offer recommendations. Utilizes SQlite as database
+
